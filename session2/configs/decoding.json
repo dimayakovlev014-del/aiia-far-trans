@@ -1,0 +1,21 @@
+{
+  "n_ctx": 8192,
+  "max_tokens": 512,
+  "temperature": 0.0,
+  "top_p": 1.0,
+  "top_k": 0,
+  "min_p": 0.0,
+  "repeat_penalty": 1.0,
+  "seed": 42,
+  "n_gpu_layers": -1,
+  "n_threads": 4,
+  "n_batch": 512,
+  "n_ubatch": 128,
+  "flash_attn": true,
+  "stop": ["<|im_end|>", "<|endoftext|>"],
+  "request_timeout_seconds": 180,
+  "load_timeout_seconds": 180,
+  "template": "Embedded GGUF tokenizer.chat_template, user-only message, add_generation_prompt=true",
+  "grammar": null,
+  "truncation": false
+}

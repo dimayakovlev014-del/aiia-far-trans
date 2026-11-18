@@ -1,0 +1,10 @@
+{
+  "backend": "llama-cpp-python with Metal",
+  "version": "0.3.16",
+  "wheel": "llama_cpp_python-0.3.16-cp39-cp39-macosx_11_0_arm64.whl",
+  "official_url": "https://github.com/abetlen/llama-cpp-python/releases/download/v0.3.16-metal/llama_cpp_python-0.3.16-cp39-cp39-macosx_11_0_arm64.whl",
+  "sha256": "4424234fb4cccfbfef1e75379da33292362158cfc4ad24f3b3e907a00c66b414",
+  "python": "3.9.6",
+  "platform": "macOS arm64",
+  "selection_reason": "Official Metal 0.3.36 wheel matched its release digest but failed ZIP/CRC validation; official 0.3.16 wheel passed digest and ZIP checks, imported and confirmed Metal support. Teacher CUDA setup was not installed."
+}

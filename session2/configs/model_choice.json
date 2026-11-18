@@ -1,0 +1,10 @@
+{
+  "repository": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+  "revision": "9217f5db79a29953eb74d5343926648285ec7e67",
+  "filename": "qwen2.5-0.5b-instruct-q4_k_m.gguf",
+  "sha256": "74a4da8c9fdbcd15bd1f6d01d621410d31c6fc00986f5eb687824e7b93d7a9db",
+  "bytes": 491400032,
+  "license": "apache-2.0",
+  "native_context": 8192,
+  "reason": "User chose a smaller open-weight model after the 2.1 GB proposed Qwen2.5-3B download was measured to require several hours on the unstable connection. No 3B inference was performed. This is a local pilot choice, not a new team agreement."
+}
