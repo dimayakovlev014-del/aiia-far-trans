@@ -1,0 +1,144 @@
+{
+  "repository": "https://github.com/dryjins/RecSys-LLMs",
+  "commit": "f6850861ea20a51e1fb018ee4e5f840c2ac759e0",
+  "retrieved_on": "2026-11-18",
+  "scope": [
+    "project/far-trans/",
+    "project/far-trans-llm/"
+  ],
+  "files": [
+    {
+      "path": "project/far-trans-llm/.gitignore",
+      "bytes": 296,
+      "sha256": "91a421d9f6428219c8e63eeb94e93537dad788f12a7759497bec61207574954b",
+      "git_blob": "78ef624b3484f89fbf176905f0633d66a5468556"
+    },
+    {
+      "path": "project/far-trans-llm/BASELINE_GUIDE.html",
+      "bytes": 15305,
+      "sha256": "8e218c90dbc0efea2fd3a03f5ac776c4a0f6c039c17db28d7953c84393e73490",
+      "git_blob": "d906522d14cfe8f2ad96b0de90ca13e2c7f7c406"
+    },
+    {
+      "path": "project/far-trans-llm/HW1_TO_HW2.md",
+      "bytes": 4108,
+      "sha256": "4d9c098c370c028fd4713f2f2283580ed0aff652051c42a606bd366c08f691ae",
+      "git_blob": "19818345ccc48c1ba06cc7eceab1c6068119a51d"
+    },
+    {
+      "path": "project/far-trans-llm/HW2_RESULTS.md",
+      "bytes": 3145,
+      "sha256": "e1ac167ca82330be9d22a358a0c0662787c3e3999b4215cd969e238c87e507d6",
+      "git_blob": "08043fc67b502ff0504f5492011b86c4caaecd01"
+    },
+    {
+      "path": "project/far-trans-llm/README.md",
+      "bytes": 8983,
+      "sha256": "72888ca084c30ebb4a7bda5ecd36fff15b3528837ac4fe46797d5d6ed35672f3",
+      "git_blob": "65b1c697678196594abe700072279eb0782562bd"
+    },
+    {
+      "path": "project/far-trans-llm/data_adapter.py",
+      "bytes": 5052,
+      "sha256": "19958c7ae419dce69d475bb0cf39498eab0510a7f147785a4a10ca5ba67d35c2",
+      "git_blob": "a6d99e1404b4405885b8a04859711de9a598ca85"
+    },
+    {
+      "path": "project/far-trans-llm/encoder.py",
+      "bytes": 7876,
+      "sha256": "abfc9c9d4f65ede71cbc30d1d13594e33dd27d276103d4577db40809fa90aedd",
+      "git_blob": "9c102f113579c632846cb226189ce2a8a93e8cf3"
+    },
+    {
+      "path": "project/far-trans-llm/ranker.py",
+      "bytes": 9684,
+      "sha256": "7c6b81794f7da10aab053074d86525b63d64aef10a08ff54ff5b6b8fa5de9f24",
+      "git_blob": "99871e457f672e239c1701e4f55861ff6fe91241"
+    },
+    {
+      "path": "project/far-trans-llm/requirements.txt",
+      "bytes": 280,
+      "sha256": "afbb798c7ce286cfde753e5b3ad8b18b67c1758ab66ec1bd6ba70d3beca393cc",
+      "git_blob": "71d8a7ed89c3c73bf4e90d793c6c391ba54ad64f"
+    },
+    {
+      "path": "project/far-trans-llm/runtime.py",
+      "bytes": 4489,
+      "sha256": "b807167090355b342bcab54bf39fed6c5a40bf7b74ffd7f1027768490333e5fd",
+      "git_blob": "f0b567737cddbc8e13ab6b37eccaf6a9b168c5d7"
+    },
+    {
+      "path": "project/far-trans-llm/test_encoder.py",
+      "bytes": 7243,
+      "sha256": "b750ca9abf183ec3622c12674a42134b5412d0b901ac3d5e516149f055b1a880",
+      "git_blob": "e9372f96b91dca49a608054493dfc3c25268712f"
+    },
+    {
+      "path": "project/far-trans-llm/test_ranker.py",
+      "bytes": 11684,
+      "sha256": "05fc614297b96dadccc8d1ba8bb59a96067b04b380e5ed598870627f36d98803",
+      "git_blob": "97b4c70416929f758c72b991e53c672ae2dbdd7d"
+    },
+    {
+      "path": "project/far-trans/.gitignore",
+      "bytes": 72,
+      "sha256": "9c456382c50e3c2324cb63703c58a05839a4055dc0ea3e340dac35e1035ba39e",
+      "git_blob": "66ec1596a27c15836a1792b8846e89bb81d0d67d"
+    },
+    {
+      "path": "project/far-trans/ANNOUNCEMENT.md",
+      "bytes": 1991,
+      "sha256": "ba8311c2122df3e6dd36f4983c5e378fd6fbbf37d476edf9136e91902c4bbe1b",
+      "git_blob": "7299d3ec7bd5a4df9b24ab5a8a52e17249316944"
+    },
+    {
+      "path": "project/far-trans/README.md",
+      "bytes": 14766,
+      "sha256": "df75474f657def11a3984eec990bb86b627df70907594e904b52f4f2e00e4692",
+      "git_blob": "2a6aa7fe96a6a45ddd354c1d4fccc28364f6f6a6"
+    },
+    {
+      "path": "project/far-trans/extensions.py",
+      "bytes": 552,
+      "sha256": "c80ddbe27846d2f0ca49ce4a66365f4951db2a226b141f5ce1b3b3fdc94114a9",
+      "git_blob": "ac5c997d1b9b764375919830290441419064930a"
+    },
+    {
+      "path": "project/far-trans/instructions/homework1.md",
+      "bytes": 10025,
+      "sha256": "b888101735338b5509f20ed70683148619c0e5f990a59d9684d5e2f2b467a24e",
+      "git_blob": "40a17bf0777b70557f1de951668ee2703bdae76d"
+    },
+    {
+      "path": "project/far-trans/instructions/homework2.md",
+      "bytes": 7096,
+      "sha256": "2d3a90d560492de7cf5f460a6f835fcba01c24481c1a6e745c2cc4c781a7a8bb",
+      "git_blob": "b7c83191a29c108bf40dc547e05b3083bfc2ca6d"
+    },
+    {
+      "path": "project/far-trans/instructions/project_FKN.md",
+      "bytes": 12160,
+      "sha256": "0f60a7382e2db74a33ce92ca65a941fa08fd278ca870aa8f8aa04a5d77056d43",
+      "git_blob": "e3e92f040dff3fa9e46155126448131f23184255"
+    },
+    {
+      "path": "project/far-trans/instructions/project_GSB_AVITO.md",
+      "bytes": 12929,
+      "sha256": "410610fe7c8ba77ed6ee1055595211fcd92728a78fa9e34a373e8cb83e1ca6f0",
+      "git_blob": "0eed290ee1261eb8f5e45cc1e2d8e70c667cdea7"
+    },
+    {
+      "path": "project/far-trans/starter.py",
+      "bytes": 22298,
+      "sha256": "c19b21adeb824737d09835fb5b8818e2d310fee83e5af909eaf8897ea1705b24",
+      "git_blob": "20abb432650f1a381f09d4c07587f24ad8ab9ad0"
+    },
+    {
+      "path": "project/far-trans/test_starter.py",
+      "bytes": 36745,
+      "sha256": "a3a86f98d67f2416a99b1ea70e495ab3b82b3a1e5a8f4a908f0a6bae8e53d1c1",
+      "git_blob": "b6c84fb49e3de099508d5c1df7bce4f1122c488b"
+    }
+  ],
+  "note": "Teacher source snapshot; no model, inference, results or student experiment commit created."
+}

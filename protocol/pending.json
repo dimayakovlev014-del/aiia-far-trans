@@ -1,0 +1,24 @@
+{
+  "status": "pending_official_protocol",
+  "source": "reference/project_GSB_AVITO.md, section 2",
+  "official_item_universe": null,
+  "prediction_cutoff": null,
+  "evaluation_window": null,
+  "evaluated_users": null,
+  "transaction_label_rules": null,
+  "seen_item_exclusion_rules": null,
+  "repeated_purchase_rules": null,
+  "zero_positive_user_policy": null,
+  "primary_metric": "nDCG@10",
+  "output_k": 10,
+  "method_proposals": {
+    "track": "Ranker",
+    "generator": "LightGCN",
+    "candidate_k": 50,
+    "control": "LambdaMART",
+    "llm_option": "Qwen2.5-3B-Instruct Q4_K_M",
+    "short_history_definition": "1–3 distinct approved purchased assets before the prediction cutoff",
+    "status": "Later Sasha account reports Ranker/LightGCN agreement and additional classical comparator; individual input choices differ; exact official protocol remains pending",
+    "model_selection_status": "According to Sasha, choose after quality/cost/speed pilot; Qwen2.5-3B remains Dmitry proposal"
+  }
+}
