@@ -1,5 +1,7 @@
 # AIIA — FAR-Trans recommendation project
 
+Repository: https://github.com/dimayakovlev014-del/aiia-far-trans
+
 LLM4Rec, HSE University. Team: Alexander Selishchev, Dmitry Yakovlev, Sofya Semushkina.
 
 ## Status

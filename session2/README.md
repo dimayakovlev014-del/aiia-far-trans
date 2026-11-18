@@ -14,4 +14,4 @@ Keep the four teacher baselines and default 100-user teaching protocol. The prop
 
 One individual PDF (body <=5 pages plus references) and genuine AI-session export are required. The older project plan is internal working material, not a second required PDF. A final report also needs Dmitry's actual personal result check, the actual team-repository URL and the experiment commit.
 
-Raw data, instantiated prompts, user-level outputs, model files, logs, personal evidence and reports are excluded from Git by default. Publish reviewed source and aggregate results only. No GitHub remote has been created by preparation.
+Raw data, instantiated prompts, user-level outputs, model files, logs, personal evidence and reports are excluded from Git by default. Publish reviewed source and aggregate results only. The user created the public team repository https://github.com/dimayakovlev014-del/aiia-far-trans; it is configured locally as origin. Verify a successful push before claiming source has been uploaded.
