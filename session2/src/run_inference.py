@@ -116,6 +116,8 @@ def main():
                         remaining=min(remaining,max(1,7200-(time.perf_counter()-start)))
                     response=worker.request(dict(prompt=request['prompt']),min(config['request_timeout_seconds'],remaining))
                     dump(target,response)
+                if response['status']=='generated':
+                    assert response['user_prompt_sha256']==request['prompt_sha256'], 'Worker prompt routing mismatch'
                 parsed=parse_and_fallback(response.get('text'),request['candidates'],request.get('alias_to_id'),response['status'])
                 record=dict(user_id=request['user_id'],arm=a.arm,cache_key=key,cache_hit=hit,
                             request_wall_seconds=time.perf_counter()-begin,response=response,**parsed)

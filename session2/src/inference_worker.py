@@ -1,5 +1,6 @@
 """Persistent isolated Metal model worker; stdout is JSON, native diagnostics stderr."""
 import json
+import hashlib
 from pathlib import Path
 import resource
 import sys
@@ -32,6 +33,9 @@ def main():
     version=llama_cpp.__version__
     lib=Path(llama_cpp.__file__).parent/'lib'
     backend=dict(llama_cpp_python=version,system_info=llama_cpp.llama_print_system_info().decode(),
+                 model_context_train=llm.metadata.get('qwen2.context_length'),
+                 architecture=llm.metadata.get('general.architecture'),
+                 gpu_offload_supported=llama_cpp.llama_supports_gpu_offload(),
                  template=template,template_sha256=__import__('hashlib').sha256(template.encode()).hexdigest(),
                  libraries={p.name:sha(p) for p in lib.glob('*.dylib')},
                  load_seconds=time.perf_counter()-start)
@@ -55,6 +59,8 @@ def main():
             response=llm.create_completion(prompt=tokens,
                 **{k:config[k] for k in ('max_tokens','temperature','top_p','top_k','min_p','repeat_penalty','seed','stop')})
             emit(dict(status='generated',text=response['choices'][0]['text'],
+                      user_prompt_sha256=hashlib.sha256(prompt.encode()).hexdigest(),
+                      input_token_ids_sha256=hashlib.sha256(json.dumps(tokens,separators=(',',':')).encode()).hexdigest(),
                       finish_reason=response['choices'][0]['finish_reason'],
                       input_tokens=len(tokens),output_tokens=response['usage']['completion_tokens'],
                       inference_seconds=time.perf_counter()-start,

@@ -5,6 +5,8 @@
   "sha256": "74a4da8c9fdbcd15bd1f6d01d621410d31c6fc00986f5eb687824e7b93d7a9db",
   "bytes": 491400032,
   "license": "apache-2.0",
-  "native_context": 8192,
+  "official_api_gguf_context": 8192,
+  "model_card_context": 32768,
+  "configured_context": 8192,
   "reason": "User chose a smaller open-weight model after the 2.1 GB proposed Qwen2.5-3B download was measured to require several hours on the unstable connection. No 3B inference was performed. This is a local pilot choice, not a new team agreement."
 }

@@ -1,6 +1,7 @@
 """Run a command with untouched combined output, exit code and external elapsed time."""
 import argparse
 import datetime
+import hashlib
 import json
 from pathlib import Path
 import subprocess
@@ -22,9 +23,15 @@ def main():
         raise FileExistsError(log)
     start = time.perf_counter()
     stamp = datetime.datetime.now(datetime.timezone.utc).isoformat()
+    source_hashes={str(path.relative_to(root)):hashlib.sha256(path.read_bytes()).hexdigest()
+                   for directory in ('src','configs','prompts')
+                   for path in (root/'session2'/directory).iterdir()
+                   if path.is_file() and path.suffix in ('.py','.swift','.json','.txt','.lock')}
     with log.open('w') as f:
         result = subprocess.run(command, cwd=a.cwd, stdout=f, stderr=subprocess.STDOUT)
     record = dict(command=command, cwd=str(Path(a.cwd).resolve()), started_utc=stamp,
+                  finished_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                  source_sha256_at_start=source_hashes,
                   elapsed_seconds=time.perf_counter()-start, exit_code=result.returncode,
                   raw_log=str(log.relative_to(root)))
     log.with_suffix('.json').write_text(json.dumps(record, indent=2)+'\n')

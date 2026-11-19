@@ -58,15 +58,19 @@ def main():
                 assert reconstructed[field]==r[field],(arm,field)
             predictions[r['user_id']][arm]=r['ranking']
         responses[arm]=rows
+        unique_responses={r['cache_key']:r['response'] for r in rows}
         coverage[arm]=dict(users=len(rows),generated=sum(r['status']=='generated' for r in rows),
                            valid=sum(r['valid'] for r in rows),fallbacks=sum(r['fallback'] for r in rows),
                            parse_repairs=sum(r['parse_repaired'] for r in rows),
                            cache_hits=sum(r['cache_hit'] for r in rows),
                            failure_types={k:sum((r['status'] if r['status']!='generated' else 'invalid_response')==k and not r['valid'] for r in rows)
                                           for k in sorted({r['status'] if r['status']!='generated' else 'invalid_response' for r in rows if not r['valid']})},
-                           generation_seconds=sum(r['response'].get('inference_seconds',0) for r in rows),
+                           unique_model_requests=len(unique_responses),
+                           generation_seconds=sum(r.get('inference_seconds',0) for r in unique_responses.values()),
+                           generation_seconds_user_sum=sum(r['response'].get('inference_seconds',0) for r in rows),
                            peak_worker_memory_bytes=max(r['response'].get('peak_process_memory_bytes',0) for r in rows),
-                           median_generation_seconds=statistics.median(r['response'].get('inference_seconds',0) for r in rows))
+                           median_generation_seconds=statistics.median(r['response'].get('inference_seconds',0) for r in rows),
+                           median_served_request_seconds=statistics.median(r['request_wall_seconds'] for r in rows))
     methods=list(predictions[users[0]])
     per_user=[]
     for uid in users:
