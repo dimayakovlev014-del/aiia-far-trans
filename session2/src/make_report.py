@@ -32,6 +32,13 @@ def main():
     backend=read('session2/outputs/behavioral_full/backend.json')
     fit=read('session2/outputs/behavioral_full/prompt_fit.json')
     both='semantic' in metrics
+    behavioral_pilot=read('session2/outputs/behavioral_pilot/summary.json')
+    scores_by_user={}
+    for row in read(comparison+'per_user.json'):
+        scores_by_user.setdefault(row['user_id'],{})[row['method']]=row['ndcg_at_10']
+    paired=[v['behavioral']-v['candidate_order'] for v in scores_by_user.values()]
+    paired_better=sum(v>1e-14 for v in paired)
+    paired_worse=sum(v< -1e-14 for v in paired)
     names={'popularity':'Popularity','cbf':'CBF','latest_buy':'Latest buy','latest_buy_or_sell':'Latest buy or sell',
            'candidate_order':'CBF candidate order','behavioral':'Behavioral LLM + fallback','semantic':'Teacher semantic LLM + fallback'}
     table='| Method | Users | Nonempty | All nDCG@10 | Nonempty nDCG@10 | Runtime | Failed |\n|---|---|---|---|---|---|---|\n'
@@ -59,13 +66,18 @@ def main():
     delta=metrics['behavioral']['ndcg_at_10']-metrics['candidate_order']['ndcg_at_10']
     semantic_text=(f"The unchanged teacher semantic prompt was also run on all 100 users with the same model, backend, decoding and candidates. Its all-user score was {metrics['semantic']['ndcg_at_10']:.4f}, with {coverage['semantic']['valid']}/100 valid generations and {coverage['semantic']['fallbacks']} fallbacks. This compares two input packages: metadata/profile/ISIN history versus aliased numerical history and CBF information. Several fields and serialization change together, so it does not identify the causal effect of masking alone."
                    if both else 'The additional unchanged semantic-prompt arm was not completed. The observed difference from candidate order cannot be attributed specifically to the prompt/input intervention.')
+    if both and coverage['semantic']['valid']==0:
+        semantic_text+=' Every semantic ranking used the original CBF fallback, so this row measures the fallback policy and does not establish semantic LLM ranking quality.'
+    if both:
+        semantic_fit=read('session2/outputs/semantic_full/prompt_fit.json')
+        semantic_text+=f" The full semantic prompts retain all 50 candidates; the maximum is {semantic_fit['max_input']} input tokens plus the same 512-token output allowance, within 8192."
     failure=ROOT/'session2/evidence/inspected_failure.json'
     failure_text='No invalid responses or generation failures were observed.'
     if failure.exists():
         f=json.loads(failure.read_text())
         r=f['record']
         failure_text=f"An AI-inspected {f['arm']} failure had validation reason `{r['error']}`. Its untouched raw text is retained; the entire original first-ten candidate list was used, with no repair model call. See `evidence/inspected_failure.json`."
-    coverage_text=' '.join(f"{names[a]}: {v['generated']} generated, {v['valid']} valid, {v['parse_repairs']} parse extractions, {v['fallbacks']} fallbacks; valid-only diagnostic nDCG {v['valid_only_diagnostic']['ndcg_at_10']:.4f} over {v['valid_only_diagnostic']['users']} users."
+    coverage_text=' '.join(f"{names[a]}: {v['generated']} generated, {v['valid']} valid, {v['parse_repairs']} parse extractions, {v['fallbacks']} fallbacks; valid-only diagnostic nDCG {v['valid_only_diagnostic']['ndcg_at_10']:.4f} over {v['valid_only_diagnostic']['users']} users ({v['valid_only_diagnostic']['nonempty_truth_users']} nonempty)."
                            if v['valid_only_diagnostic']['ndcg_at_10'] is not None else f'{names[a]}: no valid responses.' for a,v in coverage.items())
     report=f'''# Behavioral-Only LLM Reranking of Fixed FAR-Trans Candidates
 
@@ -109,9 +121,13 @@ Source template: `prompts/behavioral.txt`. Exact instantiated inputs and alias m
 
 The user chose this smaller model after measured network delays made the proposed 3B download impractical; no 3B inference was performed. The local pilot choice is **{model['repository']}**, revision `{model['revision']}`, Q4_K_M file `{model['filename']}`, Apache-2.0 license. Official LFS and downloaded SHA256 match; full digest is in `configs/model.json`. Hardware: Apple M2, 8 GB unified memory, arm64 macOS; Python 3.9.6 and llama-cpp-python {backend['llama_cpp_python']} with Metal. Exact package versions, runtime-library digests and embedded GGUF chat-template digest are saved. The embedded template receives one user message and its generation prefix. Settings: greedy temperature 0, seed 42, output at most 512 tokens, context {decode['n_ctx']}, batch {decode['n_batch']}, microbatch {decode['n_ubatch']}, four CPU threads, all layers requested on Metal, Flash Attention, no grammar or truncation. All complete student prompts fit: maximum {fit['max_input']} input tokens plus 512 output tokens.
 
+<!-- pagebreak -->
+
+### 3.4 Reliability and pilot
+
 Three real pilot users (the first three frozen cohort users) precede each full arm. This is a feasibility check, not a validation/tuning set: no prompt or model choice is selected by their future-purchase scores. Full-run gates use measured projected duration below two hours; compatible pilot calls are reused by a cache binding model revision/file, prompt, decoding, backend and worker source. Responses retain raw text, tokens, timings, finish reason and validation. Exactly ten distinct eligible candidate IDs are required. Fenced/embedded JSON extraction is recorded; no semantic editing or regeneration occurs. Invalid output uses the entire original candidate-order first ten. Timeouts, worker exits, model-load errors and generation exceptions have separate statuses and cannot become valid LLM coverage through fallback. A failed model load stops the experiment without measured metrics.
 
-<!-- pagebreak -->
+The behavioral pilot generated all three responses but produced **{behavioral_pilot['valid']}/3 valid rankings**: two duplicate lists and one eleven-element list failed validation. Model loading, full input fit, actual generation and parser/fallback operation passed; ranking-format reliability did not. Its projected 100-user generation/load duration was {behavioral_pilot['projected_100_seconds']:.1f} s. The same prompt and decoding were retained for the full coverage measurement; the invalid pilot calls were reused and remained failures. No future-purchase score was consulted to change the prompt.
 
 ## 4. Experiments
 
@@ -125,7 +141,9 @@ All rows below are current local runs, not copied teacher scores. The four class
 
 {coverage_text}
 
-The behavioral arm changes {b['changed_top10_users']}/100 Top-10 lists relative to candidate order. Its all-user paired mean difference is **{delta:+.4f}**. Pure generation time across {b['unique_model_requests']} unique behavioral prompt/cache keys, counting pilot-origin and shared calls once, is **{b['generation_seconds']:.1f} s**; median saved generation time per user's response is {b['median_generation_seconds']:.2f} s (cache hits reuse the original duration, not a new generation). Peak recorded behavioral worker process memory is {b['peak_worker_memory_bytes']/1024**3:.2f} GiB (process ru_maxrss, not total system/Metal memory). No statistical significance, causal effect, profit or suitability is claimed.
+The behavioral arm changes {b['changed_top10_users']}/100 Top-10 lists relative to candidate order. Its all-user paired mean difference is **{delta:+.4f}**: {paired_better} user improves, {paired_worse} worsen and {100-paired_better-paired_worse} have identical scores. Pure generation time across {b['unique_model_requests']} unique behavioral prompt/cache keys, counting pilot-origin and shared calls once, is **{b['generation_seconds']:.1f} s**; median saved generation time per user's response is {b['median_generation_seconds']:.2f} s (cache hits reuse the original duration, not a new generation). Peak recorded behavioral worker process memory is {b['peak_worker_memory_bytes']/1024**3:.2f} GiB (process ru_maxrss, not total system/Metal memory). No statistical significance, causal effect, profit or suitability is claimed.
+
+<!-- pagebreak -->
 
 ### 4.2 Retrieval and short-history diagnostics
 
@@ -135,17 +153,17 @@ The 1–3-distinct-assets subgroup contains 63 users and just **one** nonempty-t
 
 {subtable}
 
-<!-- pagebreak -->
-
 ## 5. Discussion
 
 ### 5.1 Findings, failures and next experiment
 
 The behavioral policy's measured difference from original CBF order is {delta:+.4f} all-user nDCG@10. Popularity scores {metrics['popularity']['ndcg_at_10']:.4f}. An LLM run is not evidence of an improvement merely because it reorders candidates; retrieval misses, fallback and the sparse 11-user label support restrict interpretation. {semantic_text}
 
-{failure_text} Full coverage, failures and valid-only diagnostics are in `outputs/comparison/coverage.json`; the main table always includes fallback users. Preparation and download failures are also preserved, including TLS timeouts and a newer official Metal wheel that matched its release digest but failed ZIP validation; the validated 0.3.16 wheel was used instead. These are environment failures, distinct from actual inference failures.
+{failure_text} Behavioral failures comprise {b['validation_reasons'].get('ValueError: Duplicate ISINs',0)} duplicate lists, {b['validation_reasons'].get('ValueError: Expected exactly ten string ISINs',0)} wrong-length/type lists, {b['validation_reasons'].get('ValueError: IDs outside candidate pool',0)} selections outside the pool, and {b['validation_reasons'].get('ValueError: No JSON array found',0)} responses without an array. Full coverage, failures and valid-only diagnostics are in `outputs/comparison/coverage.json`; the main table always includes fallback users. Preparation and download failures are also preserved, including TLS timeouts and a newer official Metal wheel that matched its release digest but failed ZIP validation; the validated 0.3.16 wheel was used instead. These are environment failures, distinct from actual inference failures.
 
-The release's reconstruction/estimation provenance, one bank and period, quantization, greedy decoding, single presentation order, tiny labelled subgroup and CBF retrieval constrain generalization. Numeric masking removes useful semantic inputs as well as identities; the model's prior knowledge is still present. One next controlled experiment is a past-snapshot validation study of the same numerical schema on fixed LightGCN candidates, comparing LambdaMART with the LLM and original generator order. Fit/tune only on earlier windows, freeze before a new held-out evaluation, and retain all users with subgroup reporting. This would begin to address the original Session 1 question; it has not been executed here.
+Among the {b['valid']} valid behavioral lists, {b['ascending_alias_order_valid_users']} are in ascending alias order. This post-run diagnostic raises a label-order concern; syntactic validity does not prove that the model used the behavioral features. The release's reconstruction/estimation provenance, one bank and period, quantization, greedy decoding, single presentation order, tiny labelled subgroup and CBF retrieval constrain generalization. Numeric masking removes useful semantic inputs as well as identities; the model's prior knowledge is still present.
+
+One next controlled experiment is consistent alias relabelling: hold the same candidates, numerical feature values, presentation order, model and decoding fixed, change only opaque aliases consistently across history/candidates, and measure output overlap, validity and nDCG without selecting a favorable labelling. It has not been executed here. The original LightGCN/LambdaMART comparison additionally requires earlier-snapshot fitting/validation and remains future work.
 
 <!-- pagebreak -->
 
@@ -179,7 +197,7 @@ I used Codex in the established preparation/review and main-workflow arrangement
 
 [6] dryjins. “RecSys-LLMs: FAR-Trans starter and LLM baselines.” [Pinned source](https://github.com/dryjins/RecSys-LLMs/tree/{teacher}/project/far-trans-llm). Preparation supplied snapshot; this session verified all 22 source hashes, read code and ran tests. Accessed 18 Nov. 2026.
 
-[7] Qwen Team. “Qwen2.5-0.5B-Instruct-GGUF.” [Pinned official model](https://huggingface.co/{model['repository']}/tree/{model['revision']}). Revision `{model['revision']}`; Apache-2.0 license. File SHA256 `{model['sha256']}`. Official metadata/card/license checked, 18 Nov. 2026.
+[7] Qwen Team. “Qwen2.5-0.5B-Instruct-GGUF.” [Pinned official model](https://huggingface.co/{model['repository']}/tree/{model['revision']}). Revision `{model['revision']}`; Apache-2.0 license. File SHA256 `{model['sha256']}`. Official metadata/card/license checked, 18–19 Nov. 2026.
 
 [8] abetlen/llama-cpp-python. [Official runtime documentation](https://github.com/abetlen/llama-cpp-python#installation); [Metal release 0.3.16](https://github.com/abetlen/llama-cpp-python/releases/tag/v0.3.16-metal). Runtime/Metal support, exact wheel digest and embedded template checked locally, 18 Nov. 2026.
 '''

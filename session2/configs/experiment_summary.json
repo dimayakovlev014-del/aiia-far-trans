@@ -1,0 +1,214 @@
+{
+  "scope": "Measured local HW8 pilot, not the final six-session project benchmark",
+  "teacher_commit": "f6850861ea20a51e1fb018ee4e5f840c2ac759e0",
+  "model": {
+    "repository": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+    "revision": "9217f5db79a29953eb74d5343926648285ec7e67",
+    "filename": "qwen2.5-0.5b-instruct-q4_k_m.gguf",
+    "sha256": "74a4da8c9fdbcd15bd1f6d01d621410d31c6fc00986f5eb687824e7b93d7a9db",
+    "license": "apache-2.0"
+  },
+  "protocol": {
+    "users": 100,
+    "nonempty_truth_users": 11,
+    "cutoff_exclusive": "2021-06-01",
+    "end_exclusive": "2021-07-01",
+    "candidate_count": 50,
+    "repeat_purchases_allowed": true,
+    "k": 10,
+    "empty_truth": "zero in primary mean"
+  },
+  "data_sha256": {
+    "transactions.csv": "358871fa1311a802799df86e56c3d633513566965b01412d058e0f8fbe6cd54b",
+    "asset_information.csv": "33f9897b14087068fba53a0bc9e24a0031b096bd3ad3e977e534153f29b7a590",
+    "customer_information.csv": "c4ad52ebca90e32bf3df5eb64f362b7a3437b77d978b22627cc46927fe7064af",
+    "close_prices.csv": "6ba1fe8390b31dfb3ab4e3e824910f9e8da4684cb6074cdb82eb6422a323656d"
+  },
+  "metrics": {
+    "popularity": {
+      "users": 100,
+      "nonempty_truth_users": 11,
+      "ndcg_at_10": 0.028590012799467636,
+      "ndcg_at_10_nonempty": 0.25990920726788763
+    },
+    "cbf": {
+      "users": 100,
+      "nonempty_truth_users": 11,
+      "ndcg_at_10": 0.02010001173607857,
+      "ndcg_at_10_nonempty": 0.18272737941889608
+    },
+    "latest_buy": {
+      "users": 100,
+      "nonempty_truth_users": 11,
+      "ndcg_at_10": 0.027722649787649066,
+      "ndcg_at_10_nonempty": 0.2520240889786279
+    },
+    "latest_buy_or_sell": {
+      "users": 100,
+      "nonempty_truth_users": 11,
+      "ndcg_at_10": 0.02710704869390403,
+      "ndcg_at_10_nonempty": 0.24642771539912756
+    },
+    "candidate_order": {
+      "users": 100,
+      "nonempty_truth_users": 11,
+      "ndcg_at_10": 0.02010001173607857,
+      "ndcg_at_10_nonempty": 0.18272737941889608
+    },
+    "behavioral": {
+      "users": 100,
+      "nonempty_truth_users": 11,
+      "ndcg_at_10": 0.021409309271793145,
+      "ndcg_at_10_nonempty": 0.19463008428902862
+    },
+    "semantic": {
+      "users": 100,
+      "nonempty_truth_users": 11,
+      "ndcg_at_10": 0.02010001173607857,
+      "ndcg_at_10_nonempty": 0.18272737941889608
+    }
+  },
+  "short_history": {
+    "popularity": {
+      "users": 63,
+      "nonempty_truth_users": 1,
+      "ndcg_at_10": 0.0,
+      "ndcg_at_10_nonempty": 0.0
+    },
+    "cbf": {
+      "users": 63,
+      "nonempty_truth_users": 1,
+      "ndcg_at_10": 0.0,
+      "ndcg_at_10_nonempty": 0.0
+    },
+    "latest_buy": {
+      "users": 63,
+      "nonempty_truth_users": 1,
+      "ndcg_at_10": 0.0,
+      "ndcg_at_10_nonempty": 0.0
+    },
+    "latest_buy_or_sell": {
+      "users": 63,
+      "nonempty_truth_users": 1,
+      "ndcg_at_10": 0.0,
+      "ndcg_at_10_nonempty": 0.0
+    },
+    "candidate_order": {
+      "users": 63,
+      "nonempty_truth_users": 1,
+      "ndcg_at_10": 0.0,
+      "ndcg_at_10_nonempty": 0.0
+    },
+    "behavioral": {
+      "users": 63,
+      "nonempty_truth_users": 1,
+      "ndcg_at_10": 0.0,
+      "ndcg_at_10_nonempty": 0.0
+    },
+    "semantic": {
+      "users": 63,
+      "nonempty_truth_users": 1,
+      "ndcg_at_10": 0.0,
+      "ndcg_at_10_nonempty": 0.0
+    }
+  },
+  "coverage": {
+    "behavioral": {
+      "users": 100,
+      "generated": 100,
+      "valid": 49,
+      "fallbacks": 51,
+      "parse_repairs": 49,
+      "cache_hits": 16,
+      "failure_types": {
+        "invalid_response": 51
+      },
+      "validation_reasons": {
+        "ValueError: Duplicate ISINs": 10,
+        "ValueError: Expected exactly ten string ISINs": 32,
+        "ValueError: IDs outside candidate pool": 7,
+        "ValueError: No JSON array found": 2
+      },
+      "finish_reasons": {
+        "length": 2,
+        "stop": 98
+      },
+      "unique_model_requests": 87,
+      "generation_seconds": 144.515782548,
+      "generation_seconds_user_sum": 163.83223934400002,
+      "peak_worker_memory_bytes": 718782464,
+      "median_generation_seconds": 1.528177792000001,
+      "median_served_request_seconds": 1.532195208500001,
+      "valid_only_diagnostic": {
+        "users": 49,
+        "nonempty_truth_users": 2,
+        "ndcg_at_10": 0.025389325435447262,
+        "ndcg_at_10_nonempty": 0.622038473168458
+      },
+      "changed_top10_users": 40,
+      "ascending_alias_order_valid_users": 15
+    },
+    "semantic": {
+      "users": 100,
+      "generated": 100,
+      "valid": 0,
+      "fallbacks": 100,
+      "parse_repairs": 0,
+      "cache_hits": 8,
+      "failure_types": {
+        "invalid_response": 100
+      },
+      "validation_reasons": {
+        "ValueError: Duplicate ISINs": 3,
+        "ValueError: Expected exactly ten string ISINs": 61,
+        "ValueError: No JSON array found": 36
+      },
+      "finish_reasons": {
+        "length": 34,
+        "stop": 66
+      },
+      "unique_model_requests": 95,
+      "generation_seconds": 629.4800902490002,
+      "generation_seconds_user_sum": 675.9530335410002,
+      "peak_worker_memory_bytes": 723664896,
+      "median_generation_seconds": 5.649249542000007,
+      "median_served_request_seconds": 5.326960020999998,
+      "valid_only_diagnostic": {
+        "users": 0,
+        "nonempty_truth_users": 0,
+        "ndcg_at_10": null,
+        "ndcg_at_10_nonempty": null
+      },
+      "changed_top10_users": 0
+    }
+  },
+  "retrieval": {
+    "total_positives": 18,
+    "retrieved_positives": 6,
+    "missed_positives": 12,
+    "recall50_micro": 0.3333333333333333,
+    "recall50_nonempty_macro": 0.4242424242424242,
+    "nonempty_users_with_retrieved_positive": 6,
+    "candidate_oracle_ndcg10": {
+      "users": 100,
+      "nonempty_truth_users": 11,
+      "ndcg_at_10": 0.04915749606264272,
+      "ndcg_at_10_nonempty": 0.4468863278422065
+    }
+  },
+  "runtime_external_seconds": {
+    "behavioral": {
+      "pilot": 23.557674584,
+      "full": 141.894916,
+      "combined_seconds": 165.452590584
+    },
+    "semantic": {
+      "pilot": 22.003555542,
+      "full": 613.327907459,
+      "combined_seconds": 635.331463001
+    }
+  },
+  "baseline_four_methods_shared_seconds": 4.926234458,
+  "input_freezing_shared_seconds": 5.158418,
+  "design_limit": "CBF replaces the planned LightGCN generator for this milestone. LambdaMART is not implemented; the original information-matched research question remains unanswered."
+}

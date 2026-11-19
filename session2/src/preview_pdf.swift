@@ -18,7 +18,7 @@ for index in 0..<document.pageCount {
         bytesPerRow: width * 4, space: CGColorSpaceCreateDeviceRGB(),
         bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
     context.setFillColor(CGColor(gray: 1, alpha: 1))
-    context.fill(CGRect(x: 0, y: 0, width: width, height: height))
+    context.fill(CGRect(x: 0, y: 0, width: CGFloat(width), height: CGFloat(height)))
     context.scaleBy(x: scale, y: scale)
     page.draw(with: .mediaBox, to: context)
     let bitmap = NSBitmapImageRep(cgImage: context.makeImage()!)

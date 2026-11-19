@@ -37,6 +37,13 @@ def main():
     predictions={u:dict(evaluation[u]['baselines'],candidate_order=requests[u]['candidates'][:10]) for u in users}
     responses={}
     coverage={}
+    protocol_alignment={}
+    baseline=json.loads((ROOT/'session2/outputs/baselines_seed0/protocol.json').read_text())
+    for name,expected in baseline['source_sha256'].items():
+        assert sha(ROOT/'session2/data'/name)==expected
+    snapshot=json.loads((ROOT/'session2/reference/teacher_snapshot.json').read_text())
+    for entry in snapshot['files']:
+        assert sha(ROOT/'vendor/RecSys-LLMs'/entry['path'])==entry['sha256']
     for arm in ('behavioral','semantic'):
         path=ROOT/f'session2/outputs/{arm}_full/responses.jsonl'
         if not path.exists():
@@ -46,12 +53,22 @@ def main():
         rows=jsonl(path)
         assert [r['user_id'] for r in rows]==users
         protocol=json.loads(path.with_name('protocol.json').read_text())
-        baseline=json.loads((ROOT/'session2/outputs/baselines_seed0/protocol.json').read_text())
+        assert protocol['inference_model']==json.loads((ROOT/'session2/configs/model.json').read_text())
+        assert protocol['decoding']==json.loads((ROOT/'session2/configs/decoding.json').read_text())
         for k,v in baseline.items():
             if k!='protocol_hash':
                 assert protocol[k]==v,(arm,k)
         saved_hash=protocol.pop('protocol_hash')
         assert digest(protocol)==saved_hash
+        frozen_protocol=json.loads((frozen/f'{arm}_protocol.json').read_text())
+        summary=json.loads(path.with_name('summary.json').read_text())
+        assert summary['protocol_hash']==frozen_protocol['protocol_hash']
+        protocol_alignment[arm]=dict(run_protocol_hash=saved_hash,
+             frozen_input_protocol_hash=frozen_protocol['protocol_hash'],
+             common_baseline_protocol_hash=baseline['protocol_hash'],
+             raw_summary_protocol_hash_meaning='Frozen input protocol, not the model/backend-extended run protocol',
+             common_contract_matches=True,model_and_decoding_match_summary=protocol['inference_model']==summary['model'] and protocol['decoding']==summary['decoding'])
+        assert protocol_alignment[arm]['model_and_decoding_match_summary']
         for r,request in zip(rows,behavioral if arm=='behavioral' else semantic):
             reconstructed=parse_and_fallback(r['response'].get('text'),request['candidates'],request.get('alias_to_id'),r['response']['status'])
             for field in ('valid','fallback','ranking','parse_repaired','error','status'):
@@ -65,6 +82,10 @@ def main():
                            cache_hits=sum(r['cache_hit'] for r in rows),
                            failure_types={k:sum((r['status'] if r['status']!='generated' else 'invalid_response')==k and not r['valid'] for r in rows)
                                           for k in sorted({r['status'] if r['status']!='generated' else 'invalid_response' for r in rows if not r['valid']})},
+                           validation_reasons={reason:sum(r['error']==reason for r in rows)
+                                               for reason in sorted({r['error'] for r in rows if r['error']})},
+                           finish_reasons={reason:sum(r['response'].get('finish_reason','no_generation')==reason for r in rows)
+                                           for reason in sorted({r['response'].get('finish_reason','no_generation') for r in rows})},
                            unique_model_requests=len(unique_responses),
                            generation_seconds=sum(r.get('inference_seconds',0) for r in unique_responses.values()),
                            generation_seconds_user_sum=sum(r['response'].get('inference_seconds',0) for r in rows),
@@ -87,6 +108,14 @@ def main():
         valid={r['user_id'] for r in rows if r['valid']}
         coverage[arm]['valid_only_diagnostic']=aggregate([r for r in per_user if r['method']==arm and r['user_id'] in valid])
         coverage[arm]['changed_top10_users']=sum(r['ranking']!=requests[r['user_id']]['candidates'][:10] for r in rows)
+        if arm=='behavioral':
+            ascending=0
+            for r in rows:
+                if r['valid']:
+                    forward={i:a for a,i in requests[r['user_id']]['alias_to_id'].items()}
+                    aliases=[forward[i] for i in r['ranking']]
+                    ascending+=aliases==sorted(aliases)
+            coverage[arm]['ascending_alias_order_valid_users']=ascending
     reference=json.loads((ROOT/'session2/outputs/baselines_seed0/metrics.json').read_text())['methods']
     for m in reference:
         for key in ('ndcg_at_10','ndcg_at_10_nonempty'):
@@ -117,10 +146,14 @@ def main():
                                    full_protocol_hashes_verified=True,raw_response_reparse=True,
                                    teacher_hashes_intact=True,users=100,nonempty=11,
                                    source_files={p.name:sha(p) for p in frozen.iterdir() if p.is_file()}))
+    dump(folder/'protocol_alignment.json',protocol_alignment)
     # A nonempty, nonzero saved example; selection is diagnostic, never tuning.
-    example=next((r for r in per_user if r['method']=='behavioral' and r['relevant_count'] and r['ndcg_at_10']>0),
-                 next(r for r in per_user if r['method']=='behavioral' and r['relevant_count']))
+    valid_users={r['user_id'] for r in responses['behavioral'] if r['valid']}
+    positive=[r for r in per_user if r['method']=='behavioral' and r['relevant_count'] and r['ndcg_at_10']>0]
+    example=next((r for r in positive if r['user_id'] in valid_users),
+                 positive[0] if positive else next(r for r in per_user if r['method']=='behavioral' and r['relevant_count']))
     uid=example['user_id']
+    example_response=next(r for r in responses['behavioral'] if r['user_id']==uid)
     ranking=predictions[uid]['behavioral']
     truth=set(evaluation[uid]['truth'])
     relevant_ranks=[r for r,i in enumerate(ranking,1) if i in truth]
@@ -132,6 +165,8 @@ def main():
 This calculation was performed by Codex (AI), not personally by Dmitry. Dmitry's confirmation remains PENDING. No Session 1 date check substitutes for this result check.
 
 Saved user: `{uid}` (JSONL line {line}).
+
+Response status: `{example_response['status']}`; valid model ranking: `{example_response['valid']}`; original-order fallback: `{example_response['fallback']}`.
 
 - Input + alias map: `session2/outputs/frozen/behavioral_requests.jsonl`, line {line}.
 - Raw generation, status and mapped ranking: `session2/outputs/behavioral_full/responses.jsonl`, line {line}.
@@ -152,6 +187,7 @@ Dmitry should inspect those saved files, verify the relevant ranks and the displ
     (ROOT/'session2/evidence/personal_check.md').write_text(text)
     dump(ROOT/'session2/evidence/personal_check.json',dict(status='PENDING',performed_by='Codex AI',user_id=uid,
                                                          jsonl_line=line,ranking=ranking,truth=sorted(truth),
+                                                         model_valid=example_response['valid'],fallback=example_response['fallback'],
                                                          relevant_ranks=relevant_ranks,dcg=dcg,idcg=idcg,ndcg=example['ndcg_at_10']))
     failures=[(arm,r) for arm,rows in responses.items() for r in rows if r['fallback']]
     if failures:
