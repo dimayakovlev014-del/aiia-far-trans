@@ -8,6 +8,7 @@
 !/protocol/
 !/vendor/
 !/session2/
+!/selishchev_hw2/
 /session2/*
 !/session2/README.md
 !/session2/src/
