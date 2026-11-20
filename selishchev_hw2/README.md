@@ -52,6 +52,14 @@ python show_user.py --data-dir /path/to/FAR-Trans         # material for a by-ha
 `--device` accepts `auto|cpu|cuda|mps`; `mps` (Apple Silicon) and `cpu` use float32,
 as in the course runtime. Both LLM runs must use the same device.
 
+**Measured runs (commit `16a4d4b`) used `--device cpu`**, not `mps`: Apple M4, 16 GB
+RAM, macOS 26.5.2, Python 3.12.13, torch 2.11.0, transformers 4.57.6, float32.
+In the 3-user `mps` pilot the first generation took about 3.7 h because of memory
+swapping, and the next two users failed with `MPS backend out of memory`; the course
+ranker caught the error and fell back to the candidate order. The CPU pilot gave
+3/3 valid outputs at 34-57 s per generation, so both full runs were done on CPU.
+To reproduce, replace `--device mps` by `--device cpu` above.
+
 ## What `evaluate.py` checks
 
 - same 100 users, cutoff, window, data SHA-256 and candidate count as the starter's

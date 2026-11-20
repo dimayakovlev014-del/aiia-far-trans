@@ -2,13 +2,16 @@
 
 Protocol hash `50efd4aeb415ba6f0c66dd0793a7c2033cdc32a42b86b58eebbca3e81eaf3417`, cutoff 2021-06-01, window to 2021-07-01 (exclusive).
 
+- llmrank: Qwen/Qwen3-1.7B @ 70d244cc86cc, device cpu, dtype torch.float32, torch 2.11.0, Apple M4, RAM 16 GB
+- llmrank_masked: Qwen/Qwen3-1.7B @ 70d244cc86cc, device cpu, dtype torch.float32, torch 2.11.0, Apple M4, RAM 16 GB
+
 | Method | Users | Users with future purchases | nDCG@10 all | nDCG@10 nonempty | Runtime, s | Failed cases |
 |---|---:|---:|---:|---:|---:|---:|
 | popularity | 100 | 11 | 0.0286 | 0.2599 | 2.6 (whole run, 4 baselines) | 0 |
 | cbf | 100 | 11 | 0.0201 | 0.1827 | 2.6 (whole run, 4 baselines) | 0 |
 | latest_buy | 100 | 11 | 0.0277 | 0.2520 | 2.6 (whole run, 4 baselines) | 0 |
 | latest_buy_or_sell | 100 | 11 | 0.0271 | 0.2464 | 2.6 (whole run, 4 baselines) | 0 |
-| candidate_order_first10 | 100 | 11 | 0.0201 | 0.1827 | 2.6 | 0 |
+| candidate_order_first10 | 100 | 11 | 0.0201 | 0.1827 | n/a (no model; listed by the LLM runs) | 0 |
 | llmrank | 100 | 11 | 0.0201 | 0.1827 | 5231.5 | 23 |
 | llmrank_masked | 100 | 11 | 0.0201 | 0.1827 | 4631.4 | 31 |
 

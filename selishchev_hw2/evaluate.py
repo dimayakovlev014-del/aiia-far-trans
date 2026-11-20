@@ -192,6 +192,7 @@ def main(argv=None):
             'failed_cases': run['manifest']['runtime']['raw_invalid_count'] if run else 0,
             'parse_repairs': run['manifest']['runtime']['parse_repair_count'] if run else 0,
             'wall_seconds': (run['summary'].get('wall_seconds_including_data_and_model_load') if run
+                             else None if method == 'candidate_order_first10'
                              else timing.get('wall_seconds_all_four_baselines_one_run')),
             'generation': run['summary'].get('generations_this_run') if run else None,
         })
@@ -238,12 +239,22 @@ def main(argv=None):
         return 'n/a' if x is None else f'{x:.4f}'
 
     lines = ['# HW2 results (aggregate only)', '',
-             f'Protocol hash `{protocol["protocol_hash"]}`, cutoff {cutoff}, window to {end} (exclusive).', '',
+             f'Protocol hash `{protocol["protocol_hash"]}`, cutoff {cutoff}, window to {end} (exclusive).', '']
+    for name, run in runs.items():
+        meta, hw = run['manifest']['runtime'], run['summary'].get('hardware') or {}
+        memory = hw.get('memory_bytes')
+        memory = f"{int(memory) / 2**30:.0f} GB" if memory and str(memory).isdigit() else 'n/a'
+        lines.append(f"- {name}: {meta.get('model')} @ {str(meta.get('resolved_revision') or meta.get('requested_revision'))[:12]}, "
+                     f"device {meta.get('device')}, dtype {meta.get('dtype')}, torch {hw.get('torch')}, "
+                     f"{hw.get('cpu', hw.get('machine', 'n/a'))}, RAM {memory}")
+    lines += ['',
              '| Method | Users | Users with future purchases | nDCG@10 all | nDCG@10 nonempty | Runtime, s | Failed cases |',
              '|---|---:|---:|---:|---:|---:|---:|']
     for r in rows:
         wall = 'n/a' if r['wall_seconds'] is None else f"{r['wall_seconds']:.1f}"
-        if r['method'] in BASELINES:
+        if r['method'] == 'candidate_order_first10':
+            wall = 'n/a (no model; listed by the LLM runs)'
+        elif r['method'] in BASELINES:
             wall += ' (whole run, 4 baselines)'
         lines.append(f"| {r['method']} | {r['users']} | {r['nonempty_users']} | {f4(r['ndcg_all'])} | "
                      f"{f4(r['ndcg_nonempty'])} | {wall} | {r['failed_cases']} |")
