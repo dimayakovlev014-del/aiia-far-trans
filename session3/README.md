@@ -40,9 +40,16 @@ input, common protocol, model, decoding, backend and actual source hashes.
 classical and semantic outputs. Semantic 100/100 fallback is not successful LLM
 quality. `configs/results.json` contains only aggregates, never client IDs.
 
-The report builder is invoked with `--experiment-commit` after the reviewed local
-commit exists. It writes an English Markdown/HTML/PDF draft locally, excluding all
-reports from Git. Personal verification stays PENDING until Dmitry confirms the
+After the reviewed local commit exists, render its English draft with:
+
+```sh
+session2/.venv/bin/python session3/src/make_report.py --experiment-commit HEAD
+session2/.venv/bin/python session3/src/render_report.py
+session2/.venv/bin/python session3/src/render_pdf.py
+```
+
+The individual Markdown/HTML/PDF remains local, excluded from Git. Personal
+verification stays PENDING until Dmitry confirms the
 specific new worksheet in `evidence/personal_check.md`. The final packet is one
 individual PDF plus this session's genuine native export, captured after the
 working turn ends. No fabricated export, remote push or course submission is
