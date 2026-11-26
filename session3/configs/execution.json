@@ -1,0 +1,80 @@
+{
+  "model": {
+    "repository": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+    "revision": "9217f5db79a29953eb74d5343926648285ec7e67",
+    "filename": "qwen2.5-0.5b-instruct-q4_k_m.gguf",
+    "sha256": "74a4da8c9fdbcd15bd1f6d01d621410d31c6fc00986f5eb687824e7b93d7a9db",
+    "bytes": 491400032,
+    "license": "apache-2.0",
+    "source_tree": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/tree/9217f5db79a29953eb74d5343926648285ec7e67",
+    "download_seconds": 56.913169375,
+    "choice_reason": "User selected a smaller open-weight model after measured network delays made the proposed 3B download impractical. No 3B inference was run.",
+    "configured_context": 8192,
+    "context_note": "Fixed conservative 8192-token budget. Official card states 32768; actual GGUF training context is recorded by the loaded backend."
+  },
+  "decoding": {
+    "n_ctx": 8192,
+    "max_tokens": 512,
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "top_k": 0,
+    "min_p": 0.0,
+    "repeat_penalty": 1.0,
+    "seed": 42,
+    "n_gpu_layers": -1,
+    "n_threads": 4,
+    "n_batch": 512,
+    "n_ubatch": 128,
+    "flash_attn": true,
+    "stop": [
+      "<|im_end|>",
+      "<|endoftext|>"
+    ],
+    "request_timeout_seconds": 180,
+    "load_timeout_seconds": 180,
+    "template": "Embedded GGUF tokenizer.chat_template, user-only message, add_generation_prompt=true",
+    "grammar": null,
+    "truncation": false
+  },
+  "hardware": {
+    "cpu": "Apple M2",
+    "model": "Mac14,2",
+    "ram_bytes": 8589934592
+  },
+  "python": "3.9.6 (default, Oct 19 2026, 19:18:13) \n[Clang 21.0.0 (clang-2100.4.1.1)]",
+  "platform": "macOS-27.2.1-arm64-arm-64bit",
+  "runtime": {
+    "llama_cpp_python": "0.3.16",
+    "system_info": "Metal : EMBED_LIBRARY = 1 | CPU : NEON = 1 | ARM_FMA = 1 | FP16_VA = 1 | DOTPROD = 1 | LLAMAFILE = 1 | ACCELERATE = 1 | REPACK = 1 | ",
+    "template_sha256": "d5495a1e5db0611132a97e46a65dbb64a642a499421228b9c8b93229097fa9a4",
+    "libraries": {
+      "libggml.dylib": "7a97e595c5ecf280512d8a6b1d57d352699b4e4042663e1fa23569494fb97bae",
+      "libmtmd.dylib": "2d326259ccd72d2d4929760e0f617dbf34cb6c7598356ffd182816f181407c1c",
+      "libggml-base.dylib": "d773c9fad5d0a0db45deafff6d757753f90b337654e5518da79a1d129b1b0535",
+      "libggml-blas.dylib": "428fa51d840a0f1fe42364eb2c8f25f86692c2d4bb712a3d3bf81c85c14dbac8",
+      "libllama.dylib": "29e0bb55110fdc618d5036a8a41e8d6e51bf76d877110f07de30aadf636e83dd",
+      "libggml-cpu.dylib": "02027b6ecd520c82bc054c1a6d5bf2cbf8a2f345e31ea16a547955208755699a",
+      "libggml-metal.dylib": "60a15db6de85964c9cdb3ab293d16a1dcc992373bdd82c10803aa8fc6331555e"
+    },
+    "gpu_offload_supported": true
+  },
+  "inference_source_sha256": {
+    "session3/src/common.py": "2c53a27e6960dddb25e03996d78fddd3ea5121aa40d79fd8d2ec361aada277f8",
+    "session3/src/prepare.py": "ee85f1b39257e4041358b2735a51f1664d341fc245983cc3287fb4173468de11",
+    "session3/src/run.py": "4e8c05f8ea4165961a6e577feff05a0822dc0b58f4a4b35fc6341e8a323e6fa6",
+    "session2/src/experiment.py": "288fd085b2ea1b4a0a2ace5b7b3e47b4d4039e375a0a5d33e15053baca6546f5",
+    "session2/src/inference_worker.py": "711ce020fb02967ee182290124e708ae36dd97ff3a214bbdf17bf410795efd64",
+    "session2/src/run_inference.py": "dd4e07a6dda66ddaed8acb6e408c0bf193cb4b86fdc778b6445cd4a55d0050df"
+  },
+  "analysis_source_sha256": "40298c8a02d89121fb6ac69fd8deeec5c5ae65c6ec603016176c959069bbb8e7",
+  "teacher_commit": "f6850861ea20a51e1fb018ee4e5f840c2ac759e0",
+  "inherited_team_main": "d206088b7c2f7301a8ac1855c24ee985b3b83fe9",
+  "calls": {
+    "main_full": 100,
+    "ablation_full": 100,
+    "pilots": 6,
+    "cache_hits": 0
+  },
+  "confirmed_backend": "Metal; native runtime logs confirm 25/25 layers offloaded",
+  "personal_verification": "PENDING"
+}

@@ -1,0 +1,363 @@
+{
+  "scope": "HW9 development adaptation; same development cohort as HW8",
+  "metrics": {
+    "popularity": {
+      "users": 100,
+      "nonempty_truth_users": 11,
+      "ndcg_at_10": 0.028590012799467636,
+      "ndcg_at_10_nonempty": 0.25990920726788763
+    },
+    "cbf": {
+      "users": 100,
+      "nonempty_truth_users": 11,
+      "ndcg_at_10": 0.02010001173607857,
+      "ndcg_at_10_nonempty": 0.18272737941889608
+    },
+    "latest_buy": {
+      "users": 100,
+      "nonempty_truth_users": 11,
+      "ndcg_at_10": 0.027722649787649066,
+      "ndcg_at_10_nonempty": 0.2520240889786279
+    },
+    "latest_buy_or_sell": {
+      "users": 100,
+      "nonempty_truth_users": 11,
+      "ndcg_at_10": 0.02710704869390403,
+      "ndcg_at_10_nonempty": 0.24642771539912756
+    },
+    "candidate_order": {
+      "users": 100,
+      "nonempty_truth_users": 11,
+      "ndcg_at_10": 0.02010001173607857,
+      "ndcg_at_10_nonempty": 0.18272737941889608
+    },
+    "main": {
+      "users": 100,
+      "nonempty_truth_users": 11,
+      "ndcg_at_10": 0.021409309271793145,
+      "ndcg_at_10_nonempty": 0.19463008428902862
+    },
+    "ablation": {
+      "users": 100,
+      "nonempty_truth_users": 11,
+      "ndcg_at_10": 0.020219663429539503,
+      "ndcg_at_10_nonempty": 0.18381512208672277
+    },
+    "semantic": {
+      "users": 100,
+      "nonempty_truth_users": 11,
+      "ndcg_at_10": 0.02010001173607857,
+      "ndcg_at_10_nonempty": 0.18272737941889608
+    }
+  },
+  "subgroup": {
+    "popularity": {
+      "users": 63,
+      "nonempty_truth_users": 1,
+      "ndcg_at_10": 0.0,
+      "ndcg_at_10_nonempty": 0.0
+    },
+    "cbf": {
+      "users": 63,
+      "nonempty_truth_users": 1,
+      "ndcg_at_10": 0.0,
+      "ndcg_at_10_nonempty": 0.0
+    },
+    "latest_buy": {
+      "users": 63,
+      "nonempty_truth_users": 1,
+      "ndcg_at_10": 0.0,
+      "ndcg_at_10_nonempty": 0.0
+    },
+    "latest_buy_or_sell": {
+      "users": 63,
+      "nonempty_truth_users": 1,
+      "ndcg_at_10": 0.0,
+      "ndcg_at_10_nonempty": 0.0
+    },
+    "candidate_order": {
+      "users": 63,
+      "nonempty_truth_users": 1,
+      "ndcg_at_10": 0.0,
+      "ndcg_at_10_nonempty": 0.0
+    },
+    "main": {
+      "users": 63,
+      "nonempty_truth_users": 1,
+      "ndcg_at_10": 0.0,
+      "ndcg_at_10_nonempty": 0.0
+    },
+    "ablation": {
+      "users": 63,
+      "nonempty_truth_users": 1,
+      "ndcg_at_10": 0.0,
+      "ndcg_at_10_nonempty": 0.0
+    },
+    "semantic": {
+      "users": 63,
+      "nonempty_truth_users": 1,
+      "ndcg_at_10": 0.0,
+      "ndcg_at_10_nonempty": 0.0
+    }
+  },
+  "paired_main_vs_cbf": {
+    "users": 100,
+    "nonempty_truth_users": 11,
+    "mean_paired_delta": 0.0013092975357145752,
+    "improved": 1,
+    "worsened": 0,
+    "tied": 99,
+    "changed_top10_order": 40,
+    "exact_top10_order": 60,
+    "exact_top10_set": 63,
+    "mean_top10_jaccard": 0.7812058203234674
+  },
+  "paired_alias_vs_main": {
+    "users": 100,
+    "nonempty_truth_users": 11,
+    "mean_paired_delta": -0.001189645842253642,
+    "improved": 1,
+    "worsened": 1,
+    "tied": 98,
+    "changed_top10_order": 55,
+    "exact_top10_order": 45,
+    "exact_top10_set": 47,
+    "mean_top10_jaccard": 0.6998396211631506
+  },
+  "dual_valid_diagnostic": {
+    "users": 39,
+    "nonempty_truth_users": 2,
+    "mean_paired_delta": -0.003357173168498911,
+    "improved": 0,
+    "worsened": 1,
+    "tied": 38,
+    "changed_top10_order": 36,
+    "exact_top10_order": 3,
+    "exact_top10_set": 4,
+    "mean_top10_jaccard": 0.4383015593422833,
+    "metrics": {
+      "candidate_order": {
+        "users": 39,
+        "nonempty_truth_users": 2,
+        "ndcg_at_10": 0.02854223571193483,
+        "ndcg_at_10_nonempty": 0.5565735963827292
+      },
+      "main": {
+        "users": 39,
+        "nonempty_truth_users": 2,
+        "ndcg_at_10": 0.031899408880433744,
+        "ndcg_at_10_nonempty": 0.622038473168458
+      },
+      "ablation": {
+        "users": 39,
+        "nonempty_truth_users": 2,
+        "ndcg_at_10": 0.02854223571193483,
+        "ndcg_at_10_nonempty": 0.5565735963827292
+      }
+    }
+  },
+  "validity_cross_table": {
+    "fallback/valid": 19,
+    "fallback/fallback": 32,
+    "valid/valid": 39,
+    "valid/fallback": 10
+  },
+  "coverage": {
+    "main": {
+      "users": 100,
+      "generated": 100,
+      "valid": 49,
+      "fallbacks": 51,
+      "parser_repairs": 49,
+      "validation_reasons": {
+        "ValueError: Duplicate ISINs": 10,
+        "ValueError: Expected exactly ten string ISINs": 32,
+        "ValueError: IDs outside candidate pool": 7,
+        "ValueError: No JSON array found": 2
+      },
+      "failure_types": {
+        "invalid_response": 51
+      },
+      "finish_reasons": {
+        "stop": 98,
+        "length": 2
+      },
+      "valid_only_diagnostic": {
+        "candidate_order": {
+          "users": 49,
+          "nonempty_truth_users": 2,
+          "ndcg_at_10": 0.02271728964827466,
+          "ndcg_at_10_nonempty": 0.5565735963827292
+        },
+        "main": {
+          "users": 49,
+          "nonempty_truth_users": 2,
+          "ndcg_at_10": 0.025389325435447262,
+          "ndcg_at_10_nonempty": 0.622038473168458
+        }
+      },
+      "changed_from_candidate_order": 40,
+      "ascending_alias_order_valid": 15
+    },
+    "ablation": {
+      "users": 100,
+      "generated": 100,
+      "valid": 58,
+      "fallbacks": 42,
+      "parser_repairs": 58,
+      "validation_reasons": {
+        "ValueError: Expected exactly ten string ISINs": 23,
+        "ValueError: Duplicate ISINs": 14,
+        "ValueError: IDs outside candidate pool": 5
+      },
+      "failure_types": {
+        "invalid_response": 42
+      },
+      "finish_reasons": {
+        "stop": 100
+      },
+      "valid_only_diagnostic": {
+        "candidate_order": {
+          "users": 58,
+          "nonempty_truth_users": 4,
+          "ndcg_at_10": 0.024176069294540452,
+          "ndcg_at_10_nonempty": 0.35055300477083656
+        },
+        "ablation": {
+          "users": 58,
+          "nonempty_truth_users": 4,
+          "ndcg_at_10": 0.02438236531774896,
+          "ndcg_at_10_nonempty": 0.3535442971073599
+        }
+      },
+      "changed_from_candidate_order": 43,
+      "ascending_alias_order_valid": 5
+    },
+    "semantic": {
+      "users": 100,
+      "generated": 100,
+      "valid": 0,
+      "fallbacks": 100,
+      "parser_repairs": 0,
+      "validation_reasons": {
+        "ValueError: Expected exactly ten string ISINs": 61,
+        "ValueError: No JSON array found": 36,
+        "ValueError: Duplicate ISINs": 3
+      },
+      "failure_types": {
+        "invalid_response": 100
+      },
+      "finish_reasons": {
+        "stop": 66,
+        "length": 34
+      },
+      "valid_only_diagnostic": {
+        "candidate_order": {
+          "users": 0,
+          "nonempty_truth_users": 0,
+          "ndcg_at_10": null,
+          "ndcg_at_10_nonempty": null
+        },
+        "semantic": {
+          "users": 0,
+          "nonempty_truth_users": 0,
+          "ndcg_at_10": null,
+          "ndcg_at_10_nonempty": null
+        }
+      },
+      "changed_from_candidate_order": 0
+    }
+  },
+  "retrieval": {
+    "total_positives": 18,
+    "retrieved_positives": 6,
+    "missed_positives": 12,
+    "recall50_micro": 0.3333333333333333,
+    "recall50_nonempty_macro": 0.4242424242424242,
+    "nonempty_users_with_retrieved_positive": 6,
+    "short_history_users": 63,
+    "short_history_nonempty": 1,
+    "short_history_retrieved_positives": 1,
+    "candidate_oracle_ndcg10": {
+      "users": 100,
+      "nonempty_truth_users": 11,
+      "ndcg_at_10": 0.04915749606264272,
+      "ndcg_at_10_nonempty": 0.4468863278422065
+    }
+  },
+  "tokens": {
+    "main_min": 1200,
+    "main_max": 1773,
+    "ablation_min": 1200,
+    "ablation_max": 1773,
+    "paired_count_differences": 0,
+    "truncations": 0,
+    "context": 8192,
+    "max_output": 512,
+    "input_token_id_hashes_differ": 100
+  },
+  "runtime": {
+    "main": {
+      "actual_calls_pilot": 3,
+      "actual_calls_full": 100,
+      "cache_hits": 0,
+      "full_worker_load_seconds": 0.266271625,
+      "full_worker_startup_wall_seconds": 0.969491166,
+      "full_generation_seconds": 161.88156362500004,
+      "pilot_generation_seconds": 4.457013707,
+      "external_seconds": {
+        "pilot": 5.605717500000001,
+        "full": 163.671068542
+      },
+      "external_pilot_plus_full_seconds": 169.276786042,
+      "peak_process_memory_bytes": 715505664
+    },
+    "ablation": {
+      "actual_calls_pilot": 3,
+      "actual_calls_full": 100,
+      "cache_hits": 0,
+      "full_worker_load_seconds": 0.270705375,
+      "full_worker_startup_wall_seconds": 0.991303792,
+      "full_generation_seconds": 161.45115212599987,
+      "pilot_generation_seconds": 4.573800165,
+      "external_seconds": {
+        "pilot": 5.751315667,
+        "full": 163.28744270899998
+      },
+      "external_pilot_plus_full_seconds": 169.03875837599998,
+      "peak_process_memory_bytes": 719945728
+    },
+    "reused_hw8_controls": {
+      "classical_four_shared_external_seconds": 4.926234458,
+      "freezing_shared_seconds": 5.158418,
+      "semantic_external": {
+        "pilot": 22.003555542,
+        "full": 613.327907459,
+        "combined_seconds": 635.331463001
+      },
+      "semantic_unique_generation_seconds": 629.4800902490002,
+      "semantic_full_cache_hits": 8,
+      "semantic_full_unique_requests": 95,
+      "note": "Prior HW8 timings, not new HW9 computation; cache-origin duration is not newly generated time"
+    },
+    "hw9_preprocessing_seconds": 0.5262776659999999,
+    "hw9_preflight_external_seconds": 1.5037325830000001,
+    "new_inference_calls_total": 206,
+    "hw9_bounded_pipeline_external_seconds": 340.4571870429999,
+    "scope": "Sum of separate successful prepare, preflight, pilot and full commands; excludes idle coding/review, sandbox failure, downloads, analysis and rendering. No training; existing weights reused."
+  },
+  "deterministic_case_counts": {
+    "first_invalid": 61,
+    "first_dual_valid_changed": 36,
+    "first_comparable_no_effect": 3,
+    "first_nonempty_ndcg_difference": 2
+  },
+  "common_protocol_hash": "a50ee5d72c0cac0faadfd4a77e619e3dab139bec5e867f369363d56ee985ae95",
+  "common_protocol_file_sha256": "e2e175e37fb0020dd412de3d7dd94aa044b552df99daf8f470aa6c45ce2a0802",
+  "run_protocol_hashes": {
+    "main": "32d8b06057c814ccf6db3eb65963c3def89e6842161132c2d80f3068a131c317",
+    "ablation": "fa59e732290282fa1824d7dc15aaae6408263c904e1592fd34db9a6b1029359e",
+    "semantic": "2d4c6e64607528b543d81c31c430a27d8b769a6781f22cdd34593bb67c22dc27"
+  },
+  "personal_verification": "PENDING"
+}

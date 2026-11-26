@@ -1,0 +1,35 @@
+{
+  "status": "preparation only; no HW9 measured outcomes",
+  "design_date": "2026-11-26",
+  "assignment": "Homework 3 / course HW9 / Session 3",
+  "scope": "FAR-Trans development, fixed-candidate Ranker",
+  "assignment_sha256": "c6d9fa3cfc78e93088a400a0dc11c9186d4a22a5c47453d6b72bfd02390e4803",
+  "parent_student_commit": "334f5e9bce320b969eb08cec6ee20e2bb9914482",
+  "team_main_at_preparation": "d206088b7c2f7301a8ac1855c24ee985b3b83fe9",
+  "protocol": {
+    "cohort_size": 100,
+    "selection": "HW8 frozen deterministic teacher SHA256 seed-42 ordering of warm users; no truth filter",
+    "cutoff": "2021-06-01",
+    "end_exclusive": "2021-07-01",
+    "repeat_purchases_allowed": true,
+    "candidates": "unchanged ordered Top-50 CBF",
+    "primary": "macro nDCG@10 with empty truth set scored as zero",
+    "secondary": "nonempty-truth macro nDCG@10, with count",
+    "short_history": "1–3 distinct pre-cutoff purchases; diagnostic",
+    "hw8_protocol_file_sha256": "df787347c013740822aeaa2ea17688e975fe46f608f14aea53235ac76fe58f99",
+    "hw8_original_requests_file_sha256": "e487f19b864b4ac0dd047798301dafd22bea6630ff93a5f46776647e661acea1"
+  },
+  "model": {
+    "repository": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+    "revision": "9217f5db79a29953eb74d5343926648285ec7e67",
+    "file": "qwen2.5-0.5b-instruct-q4_k_m.gguf",
+    "file_sha256": "74a4da8c9fdbcd15bd1f6d01d621410d31c6fc00986f5eb687824e7b93d7a9db",
+    "hw8_decoding_file_sha256": "cc4eb5dee0e8f7d6ecb47487a9be314305a98f2c455113020ca4c869a3067195"
+  },
+  "arms": {
+    "main": "new inference with unchanged HW8 behavioral prompt vs initial CBF order",
+    "ablation": "new inference with only a lexicographic alias reversal per user, consistent across history and candidates",
+    "controls": ["Popularity", "CBF", "Latest buy", "Latest buy or sell", "initial CBF order", "teacher semantic LLM prompt plus fallback"],
+    "fallback": "initial candidate Top-10 for invalid model output, tracked for everyone"
+  }
+}
