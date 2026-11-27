@@ -1,0 +1,10 @@
+.local/
+scores.jsonl
+requests.jsonl
+results.json
+predictions.csv
+manifest.json
+smoke.json
+full.authorized
+__pycache__/
+*.docx
