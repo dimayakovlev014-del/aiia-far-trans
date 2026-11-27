@@ -32,6 +32,7 @@ Keep all four provided baselines: Popularity, CBF, Latest buy, Latest buy or sel
 These teaching settings do not define the final project benchmark. Its pending settings remain in `protocol/pending.json`.
 
 Alexander Selishchev's Session 2 homework change (HW2 / HW8) (asset-name masking in the teacher LLM reranker) is in `selishchev_hw2/`.
+His Homework 3 / HW9 experiment (grammar-constrained decoding for the same reranker, with the name-masking ablation) is in `selishchev_hw3/`.
 
 See `session2/README.md` and the vendored READMEs for the current workflow. The original data must be obtained separately from https://researchdata.gla.ac.uk/1658/ and supplied through the starter's `--data-dir` argument. Do not commit the dataset.
 

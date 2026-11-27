@@ -1,0 +1,4 @@
+# Inference only; baselines, evaluation and tests use the Python standard library.
+# Same pins as the course far-trans-llm/requirements.txt (macOS arm64 wheels exist on PyPI for Python 3.10-3.14, not 3.9).
+torch==2.11.0
+transformers==4.57.6
