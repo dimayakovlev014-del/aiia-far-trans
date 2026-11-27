@@ -1,0 +1,251 @@
+{
+  "status": "complete",
+  "experiment_commit": "f76dc87e1abb089626faee3e5793056380801dea",
+  "model": {
+    "model": "Qwen/Qwen3-Reranker-0.6B",
+    "revision": "e61197ed45024b0ed8a2d74b80b4d909f1255473",
+    "max_length": 512,
+    "batch_size": 10,
+    "device": "mps",
+    "dtype": "float16",
+    "seed": 42,
+    "threads": 4,
+    "history_top_assets": 5,
+    "recent_buys": 3,
+    "candidate_count": 10,
+    "smoke_users": 3,
+    "users": 100,
+    "score": "logit_yes_minus_logit_no",
+    "ties": "original CBF order",
+    "instruction": "Judge whether this candidate is relevant to the investor's next asset purchase, using only the supplied pre-cutoff history, candidate attributes and any supplied investor profile. Repeat purchases are allowed. Unknown fields remain unknown. Purchase relevance does not establish profitability or suitability."
+  },
+  "protocol": {
+    "protocol_hash": "5b6ce0fdd81f98bcb44f8ee149fbdbc795427db48e568d86cc92a413e2188aee",
+    "common_hw2_protocol_hash": "50efd4aeb415ba6f0c66dd0793a7c2033cdc32a42b86b58eebbca3e81eaf3417",
+    "candidates_sha256": "ed5bcd77d78353c609c5c13cee3b6f66bd3f7be1c212d9d8c07188b1ab393325",
+    "source_data_sha256": {
+      "transactions.csv": "358871fa1311a802799df86e56c3d633513566965b01412d058e0f8fbe6cd54b",
+      "asset_information.csv": "33f9897b14087068fba53a0bc9e24a0031b096bd3ad3e977e534153f29b7a590",
+      "customer_information.csv": "c4ad52ebca90e32bf3df5eb64f362b7a3437b77d978b22627cc46927fe7064af",
+      "close_prices.csv": "6ba1fe8390b31dfb3ab4e3e824910f9e8da4684cb6074cdb82eb6422a323656d"
+    },
+    "users": 100,
+    "nonempty_truth_users": 11,
+    "cutoff_exclusive": "2021-06-01",
+    "end_exclusive": "2021-07-01",
+    "repeat_purchases_allowed": true,
+    "candidate_policy": "Fixed original CBF Top-10; independent pointwise scoring; stable original-order ties"
+  },
+  "metrics": {
+    "behavioral": {
+      "users": 100,
+      "nonempty_truth_users": 11,
+      "ndcg_at_10": 0.028203849743048126,
+      "ndcg_at_10_nonempty": 0.25639863402771024
+    },
+    "profile_enriched": {
+      "users": 100,
+      "nonempty_truth_users": 11,
+      "ndcg_at_10": 0.02740105763453,
+      "ndcg_at_10_nonempty": 0.24910052395027274
+    }
+  },
+  "previous_hw2_metrics": {
+    "popularity": {
+      "users": 100,
+      "nonempty_truth_users": 11,
+      "empty_truth_users": 89,
+      "ndcg_at_10": 0.028590012799467636,
+      "ndcg_at_10_nonempty": 0.25990920726788763
+    },
+    "cbf": {
+      "users": 100,
+      "nonempty_truth_users": 11,
+      "empty_truth_users": 89,
+      "ndcg_at_10": 0.02010001173607857,
+      "ndcg_at_10_nonempty": 0.18272737941889608
+    },
+    "latest_buy": {
+      "users": 100,
+      "nonempty_truth_users": 11,
+      "empty_truth_users": 89,
+      "ndcg_at_10": 0.027722649787649066,
+      "ndcg_at_10_nonempty": 0.2520240889786279
+    },
+    "latest_buy_or_sell": {
+      "users": 100,
+      "nonempty_truth_users": 11,
+      "empty_truth_users": 89,
+      "ndcg_at_10": 0.02710704869390403,
+      "ndcg_at_10_nonempty": 0.24642771539912756
+    },
+    "candidate_order": {
+      "users": 100,
+      "nonempty_truth_users": 11,
+      "empty_truth_users": 89,
+      "ndcg_at_10": 0.02010001173607857,
+      "ndcg_at_10_nonempty": 0.18272737941889608
+    },
+    "behavioral": {
+      "users": 100,
+      "nonempty_truth_users": 11,
+      "empty_truth_users": 89,
+      "ndcg_at_10": 0.021409309271793145,
+      "ndcg_at_10_nonempty": 0.19463008428902862
+    },
+    "profile_enriched": {
+      "users": 100,
+      "nonempty_truth_users": 11,
+      "empty_truth_users": 89,
+      "ndcg_at_10": 0.021409309271793145,
+      "ndcg_at_10_nonempty": 0.19463008428902862
+    }
+  },
+  "paired": {
+    "users": 100,
+    "changed_rankings": 99,
+    "improved": 0,
+    "worsened": 1,
+    "unchanged": 99
+  },
+  "changed_vs_cbf": {
+    "behavioral": 100,
+    "profile_enriched": 100
+  },
+  "segments": {
+    "known_54": {
+      "metrics": {
+        "behavioral": {
+          "users": 54,
+          "nonempty_truth_users": 5,
+          "ndcg_at_10": 0.020943143584656623,
+          "ndcg_at_10_nonempty": 0.2261859507142915
+        },
+        "profile_enriched": {
+          "users": 54,
+          "nonempty_truth_users": 5,
+          "ndcg_at_10": 0.020943143584656623,
+          "ndcg_at_10_nonempty": 0.2261859507142915
+        }
+      },
+      "paired": {
+        "users": 54,
+        "changed_rankings": 53,
+        "improved": 0,
+        "worsened": 0,
+        "unchanged": 54
+      }
+    },
+    "unknown_46": {
+      "metrics": {
+        "behavioral": {
+          "users": 46,
+          "nonempty_truth_users": 6,
+          "ndcg_at_10": 0.03672728740724685,
+          "ndcg_at_10_nonempty": 0.28157587012222585
+        },
+        "profile_enriched": {
+          "users": 46,
+          "nonempty_truth_users": 6,
+          "ndcg_at_10": 0.03498208717133788,
+          "ndcg_at_10_nonempty": 0.26819600164692375
+        }
+      },
+      "paired": {
+        "users": 46,
+        "changed_rankings": 46,
+        "improved": 0,
+        "worsened": 1,
+        "unchanged": 45
+      }
+    }
+  },
+  "reliability": {
+    "behavioral": {
+      "users": 100,
+      "valid_rankings": 100,
+      "invalid_rankings": 0,
+      "valid_scores": 1000,
+      "invalid_scores": 0,
+      "repairs": 0,
+      "fallback": 0
+    },
+    "profile_enriched": {
+      "users": 100,
+      "valid_rankings": 100,
+      "invalid_rankings": 0,
+      "valid_scores": 1000,
+      "invalid_scores": 0,
+      "repairs": 0,
+      "fallback": 0
+    }
+  },
+  "timing": {
+    "preparation_seconds": 1.4939427079999998,
+    "inference_seconds": {
+      "behavioral": 161.2510521339999,
+      "profile_enriched": 171.7972419569999
+    },
+    "scope": "Includes smoke scores reused in full; inference timing excludes model loading, tokenization and disk checkpoints"
+  },
+  "smoke": {
+    "users": 3,
+    "valid_scores": 60,
+    "inference_seconds": 11.037334374999999,
+    "wall_seconds": 11.046312375,
+    "model_load_seconds": 2.06787875,
+    "projected_full_inference_seconds": 367.9111458333333,
+    "projected_full_seconds": 369.9790245833333,
+    "max_input_tokens": 351,
+    "protocol_hash": "5b6ce0fdd81f98bcb44f8ee149fbdbc795427db48e568d86cc92a413e2188aee"
+  },
+  "profile_coverage": {
+    "segment_known": 100,
+    "risk_and_capacity_known": 54,
+    "risk_and_capacity_unknown": 46
+  },
+  "hardware": {
+    "torch": "2.8.0",
+    "transformers": "4.51.3",
+    "device": "mps",
+    "dtype": "float16",
+    "python": "3.9.6",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "chip": "Apple M4",
+    "memory_gb": 16
+  },
+  "model_files_sha256": {
+    "model.safetensors": "27cd75a405b9c1b46b59abfd88aaa209e6fed2a1972cde9b70e7659537c5e65b",
+    "tokenizer_config.json": "253153d0738ceb4c668d2eff957714dd2bea0b56de772a9fdccd96cbf517e6a0",
+    "config.json": "d479c427a9ca5295218063d4f9aca4f297ab4ac27487cca7af42c84643d51ef0",
+    "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+    "README.md": "5bba8c734f6dd3ae48317b4139317e45a7fce48fc55e15670b23a0dd15492ab6",
+    "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+    "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+  },
+  "checks": {
+    "hw2_unchanged": true,
+    "cohort_and_labels_match_hw2": true,
+    "candidate_top10_fixed": true,
+    "one_profile_ablation_only": true,
+    "temporal_inputs_checked": true,
+    "saved_scores": 2000
+  },
+  "independent_verification": {
+    "passed": true,
+    "score_records": 2000,
+    "unique_users": 100,
+    "teacher_evaluator_recomputed": true,
+    "only_three_profile_fields_differ": true,
+    "hw2_unchanged": true,
+    "personal_truth_checked_against_transactions": true,
+    "nonempty_users_with_retrieved_positive": 5,
+    "verification_code_sha256": "242726f3700a59b68e95f08a3e25b5bf95f9be515def21c9a46e5a9d922754e2"
+  },
+  "personal_verification": "PENDING",
+  "conclusion": "H1 not supported in this development sample; the profile slightly reduces mean nDCG@10. No claim of statistical significance.",
+  "profile_effect": {
+    "ndcg_at_10": -0.0008027921085181251,
+    "ndcg_at_10_nonempty": -0.007298110077437497
+  }
+}
