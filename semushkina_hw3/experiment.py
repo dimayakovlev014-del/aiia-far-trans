@@ -1,5 +1,5 @@
 """Frozen pointwise comparison; batch checkpoints are the unit of recovery."""
-import argparse,csv,hashlib,json,math,os,platform,subprocess,sys,time
+import argparse,csv,hashlib,importlib.util,json,math,os,platform,subprocess,sys,time
 from collections import Counter,defaultdict
 from pathlib import Path
 
@@ -7,8 +7,9 @@ HERE=Path(__file__).resolve().parent
 ROOT=HERE.parent
 HW2=ROOT/'semushkina_hw2'
 sys.dont_write_bytecode=True
-sys.path.insert(0,str(HW2))
-from profile import investor,latest_rows,category
+_spec=importlib.util.spec_from_file_location('hw2_temporal',HW2/'profile.py')
+_temporal=importlib.util.module_from_spec(_spec);_spec.loader.exec_module(_temporal)
+investor,latest_rows,category=_temporal.investor,_temporal.latest_rows,_temporal.category
 from download import sha
 PREFIX='<|im_start|>system\nJudge whether the Document meets the requirements based on the Query and the Instruct provided. Note that the answer can only be "yes" or "no".<|im_end|>\n<|im_start|>user\n'
 SUFFIX='<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n'
